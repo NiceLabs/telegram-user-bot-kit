@@ -1,0 +1,8 @@
+.venv
+!.venv/pyvenv.cfg
+
+*.DS_Store
+*.csv
+*.txt
+*.zip
+*.session
