@@ -1,8 +1,7 @@
-.venv
-!.venv/pyvenv.cfg
+/.venv
+/.idea
+/data
 
-*.DS_Store
-*.csv
-*.txt
-*.zip
 *.session
+*.session-journal
+config.ini

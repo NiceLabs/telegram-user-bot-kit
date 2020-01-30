@@ -1,0 +1,9 @@
+numpy==1.19.0
+pandas==1.0.5
+pyaes==1.6.1
+Pyrogram==0.17.1
+PySocks==1.7.1
+python-dateutil==2.8.1
+pytz==2020.1
+six==1.15.0
+TgCrypto==1.2.1
