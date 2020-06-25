@@ -2,28 +2,26 @@
 import sys
 from datetime import datetime, timedelta
 
-from pyrogram import Client, Message
+from pyrogram import Client
 
 app = Client("my_account")
 
 
-def remove_unable_message(message: Message):
-    if not message.service:
-        return
-    deletable = message.left_chat_member or message.new_chat_members
-    if not deletable:
-        return
-    message.delete()
-
-
-def main():
-    chat_id = int(sys.argv[1])
-    app.start()
+def remove_unable_message(chat_id: int):
     for message in app.iter_history(chat_id=chat_id):
         delta: timedelta = datetime.now() - datetime.fromtimestamp(message.date)
         if delta.days >= 730:
             break
-        remove_unable_message(message)
+        if not message.service:
+            continue
+        if message.left_chat_member or message.new_chat_members:
+            message.delete()
+
+
+def main():
+    app.start()
+    for chat_id in sys.argv[1:]:
+        remove_unable_message(int(chat_id))
     app.stop()
 
 
