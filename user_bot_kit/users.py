@@ -7,7 +7,7 @@ from pyrogram import Client, ChatMember
 from pyrogram.api.functions.users import GetFullUser
 from pyrogram.api.types import UserFull
 
-from . import retry
+from user_bot_kit import retry
 
 
 def remove_member(app: Client, chat_id: int, member: ChatMember):
