@@ -3,8 +3,8 @@ from datetime import datetime
 
 from pyrogram.errors import FloodWait, BadRequest
 
-from .groups import get_super_groups
-from .users import remove_member, get_user, get_users
+from user_bot_kit.groups import get_super_groups
+from user_bot_kit.users import remove_member, get_user, get_users
 
 __all__ = [
     "get_super_groups",
