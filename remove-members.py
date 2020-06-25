@@ -5,7 +5,7 @@ import time
 
 from pyrogram import Client
 
-import user_bot_kit
+import user_bot_kit.users
 
 app = Client("my_account")
 
@@ -20,7 +20,7 @@ def remove_user_ids(chat_id: int):
 
 def clean_deleted_account(chat_id: int):
     removable_user_ids = set(remove_user_ids(chat_id))
-    current_user_ids = {member.user.id for member in user_bot_kit.get_users(app, chat_id)}
+    current_user_ids = {member.user.id for member in user_bot_kit.users.get_users(app, chat_id)}
     user_ids = removable_user_ids & current_user_ids
 
     print("remain count: %d" % len(user_ids))

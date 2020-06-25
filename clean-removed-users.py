@@ -3,13 +3,13 @@ import sys
 
 from pyrogram import Client
 
-import user_bot_kit
+import user_bot_kit.users
 
 app = Client("my_account")
 
 
 def clean_removed_users(chat_id: int):
-    remove_member = user_bot_kit.retry(user_bot_kit.remove_member)
+    remove_member = user_bot_kit.retry(user_bot_kit.users.remove_member)
     for member in app.iter_chat_members(chat_id=chat_id, filter="kicked"):
         remove_member(app, chat_id, member)
 
