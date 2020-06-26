@@ -33,7 +33,7 @@ def get_user(app: Client, member: ChatMember, get_bio=False):
         fully: UserFull = app.send(GetFullUser(id=member.user.id))
         bio = fully.about
     return {
-        "User ID": member.user.id,
+        "User ID": str(member.user.id),
         "Joined Date": joined_date,
         "Status": member.status,
         "Photo": None if member.user.photo else "Unset",

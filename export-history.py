@@ -37,7 +37,7 @@ def export_history(chat_id: int):
         send_date = message_date.astimezone().isoformat()
         yield {
             "Date": send_date,
-            "User ID": message.from_user.id
+            "User ID": str(message.from_user.id)
         }
 
 
