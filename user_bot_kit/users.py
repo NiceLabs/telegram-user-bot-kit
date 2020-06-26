@@ -6,8 +6,6 @@ from pyrogram import Client, ChatMember
 from pyrogram.api.functions.users import GetFullUser
 from pyrogram.api.types import UserFull
 
-from user_bot_kit import retry
-
 
 def remove_member(app: Client, chat_id: int, member: ChatMember):
     user_id = member.user.id
@@ -20,7 +18,6 @@ def remove_member(app: Client, chat_id: int, member: ChatMember):
         print("#%s #%s Unbanned" % (chat_id, user_id))
 
 
-@retry
 def get_user(app: Client, member: ChatMember, get_bio=False):
     joined_date = None
     if member.joined_date:

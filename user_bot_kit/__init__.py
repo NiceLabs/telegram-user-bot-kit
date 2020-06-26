@@ -9,9 +9,9 @@ def retry(func):
         try:
             func(*args, **kwargs)
         except BadRequest as err:
-            print(repr(err))
             if err.ID == "PEER_ID_INVALID":
-                return
+                raise
+            print(repr(err))
             wrapper(*args, **kwargs)
         except FloodWait as err:
             end_date = datetime \
