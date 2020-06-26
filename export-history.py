@@ -57,18 +57,14 @@ def main():
             "Bio",
         ])
         writer.writeheader()
-        for row in export_members(chat_id):
-            writer.writerow(row)
-            fp.flush()
+        writer.writerows(export_members(chat_id))
     with open("data/%s-history.csv" % chat_id, "w", encoding="utf-8-sig", newline="") as fp:
         writer = csv.DictWriter(fp, fieldnames=[
             "Date",
             "User ID"
         ])
         writer.writeheader()
-        for row in export_history(chat_id):
-            writer.writerow(row)
-            fp.flush()
+        writer.writerows(export_history(chat_id))
     app.stop()
 
 
