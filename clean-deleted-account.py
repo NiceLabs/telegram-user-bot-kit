@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-from itertools import chain
-
 from pyrogram import ChatMember, Client
 
 import user_bot_kit.groups
@@ -11,11 +9,7 @@ app = Client("my_account")
 
 def clean_deleted_account(chat_id: int):
     remove_member = user_bot_kit.retry(user_bot_kit.users.remove_member)
-    members = chain(
-        app.iter_chat_members(chat_id=chat_id, filter="kicked"),
-        app.iter_chat_members(chat_id=chat_id, filter="restricted"),
-        app.iter_chat_members(chat_id=chat_id),
-    )
+    members = user_bot_kit.users.get_users(app, chat_id)
     for member in members:
         member: ChatMember
         if not member.user.is_deleted:

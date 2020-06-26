@@ -46,7 +46,7 @@ def get_user(app: Client, member: ChatMember, get_bio=False):
 
 def get_users(app: Client, chat_id: int):
     return chain(
-        app.iter_chat_members(chat_id=chat_id),
         app.iter_chat_members(chat_id=chat_id, filter="kicked"),
         app.iter_chat_members(chat_id=chat_id, filter="restricted"),
+        app.iter_chat_members(chat_id=chat_id),
     )
