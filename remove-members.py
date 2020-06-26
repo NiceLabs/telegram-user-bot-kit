@@ -18,7 +18,7 @@ def remove_user_ids(chat_id: int):
             yield int(row["User ID"])
 
 
-def clean_deleted_account(chat_id: int):
+def clean(chat_id: int):
     removable_user_ids = set(remove_user_ids(chat_id))
     current_user_ids = {member.user.id for member in user_bot_kit.users.get_users(app, chat_id)}
     user_ids = removable_user_ids & current_user_ids
@@ -34,9 +34,9 @@ def clean_deleted_account(chat_id: int):
 
 
 def main():
-    chat_id = int(sys.argv[1])
     app.start()
-    clean_deleted_account(chat_id)
+    for chat_id in sys.argv[1:]:
+        clean(int(chat_id))
     app.stop()
 
 
