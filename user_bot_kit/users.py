@@ -30,7 +30,7 @@ def get_user(app: Client, member: ChatMember, get_bio=False):
             .isoformat()
     bio = None
     if get_bio:
-        fully: UserFull = app.send(GetFullUser(id=member.user.id))
+        fully: UserFull = app.send(GetFullUser(id=app.resolve_peer(member.user.id)))
         bio = fully.about
     return {
         "User ID": str(member.user.id),
