@@ -18,7 +18,7 @@ def export_members(chat_id: int):
         member: ChatMember
         if index % 100 == 0 or index % round(count / 20) == 0:
             print("# {:>6d} / {:<6d} = {:.2%}".format(index, count, index / count))
-        yield get_user(app, member, get_bio=True)
+        yield get_user(app, member, get_bio=False)
 
 
 def export_history(chat_id: int):
