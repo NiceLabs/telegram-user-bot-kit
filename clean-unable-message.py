@@ -12,6 +12,8 @@ def remove_unable_message(chat_id: int):
         delta: timedelta = datetime.now() - datetime.fromtimestamp(message.date)
         if delta.days >= 730:
             break
+        if message.command:
+            message.delete()
         if not message.service:
             continue
         if message.left_chat_member or message.new_chat_members:
