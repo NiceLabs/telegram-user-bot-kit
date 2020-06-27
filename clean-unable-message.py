@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 import sys
 from datetime import datetime, timedelta
+from typing import List
 
-from pyrogram import Client
+from pyrogram import Client, MessageEntity
 
 app = Client("my_account")
+
+
+def is_bot_command(entities: List[MessageEntity]):
+    if not entities:
+        return False
+    return any(entity.type == "bot_command" for entity in entities)
 
 
 def remove_unable_message(chat_id: int):
@@ -12,7 +19,7 @@ def remove_unable_message(chat_id: int):
         delta: timedelta = datetime.now() - datetime.fromtimestamp(message.date)
         if delta.days >= 730:
             break
-        if message.command:
+        if is_bot_command(message.entities):
             message.delete()
         if not message.service:
             continue
