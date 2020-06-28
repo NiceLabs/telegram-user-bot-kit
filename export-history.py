@@ -30,6 +30,7 @@ def export_history(chat_id: int):
         message: Message
         skippable = (
                 is_bot_command(message)
+                or not message.from_user
                 or message.forward_from
                 or message.empty
                 or message.service
