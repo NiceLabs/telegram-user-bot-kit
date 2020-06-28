@@ -30,7 +30,7 @@ def display_name(chat: Chat):
 
 def main():
     app.start()
-    for chat, status in sorted(get_chats(), key=lambda _: _.status):
+    for chat, status in sorted(get_chats(), key=lambda _: _[1]):
         row = "#%14s | %-20s | %-40s | %-13s | %s" % (
             chat.type,
             chat.id,
