@@ -28,16 +28,12 @@ def export_history(chat_id: int):
     count = app.get_history_count(chat_id=chat_id)
     for index, message in enumerate(app.iter_history(chat_id=chat_id)):
         message: Message
-        ignore = (
+        skippable = (
                 is_bot_command(message)
-                or not message.forward_from
-                or not message.text
-                or message.empty
-                or message.service
-                or message.media
-                or message.via_bot
+                or not message.forward_from or not message.text
+                or message.empty or message.service or message.media or message.via_bot
         )
-        if ignore:
+        if skippable:
             continue
         if index % 100 == 0 or index % round(count / 20) == 0:
             print("# {:>6d} / {:<6d} = {:.2%}".format(index, count, index / count))
