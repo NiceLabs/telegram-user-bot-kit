@@ -7,7 +7,7 @@ from pyrogram import Client
 
 import user_bot_kit.users
 
-app = Client("my_account")
+app = Client("bot")
 
 
 def remove_user_ids(chat_id: int):

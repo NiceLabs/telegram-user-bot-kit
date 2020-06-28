@@ -5,29 +5,39 @@ from datetime import datetime, timedelta
 
 from pyrogram import ChatMember, Client, Message
 
-import user_bot_kit.users
+from user_bot_kit import retry
+from user_bot_kit.message import is_bot_command
+from user_bot_kit.users import get_user
 
-app = Client("my_account")
+app = Client("bot")
 
 
 def export_members(chat_id: int):
     count = app.get_chat_members_count(chat_id=chat_id)
-    get_user = user_bot_kit.retry(user_bot_kit.users.get_user)
+    fetch = retry(get_user)
     for index, member in enumerate(app.iter_chat_members(chat_id=chat_id)):
-        index: int
         member: ChatMember
+        if member.user.is_deleted:
+            continue
         if index % 100 == 0 or index % round(count / 20) == 0:
             print("# {:>6d} / {:<6d} = {:.2%}".format(index, count, index / count))
-        yield get_user(app, member, get_bio=False)
+        yield fetch(app, member, get_bio=False)
 
 
 def export_history(chat_id: int):
     count = app.get_history_count(chat_id=chat_id)
     for index, message in enumerate(app.iter_history(chat_id=chat_id)):
         message: Message
-        if not message.from_user:
-            continue
-        if message.service or message.empty or message.media or message.via_bot:
+        ignore = (
+                is_bot_command(message)
+                or not message.forward_from
+                or not message.text
+                or message.empty
+                or message.service
+                or message.media
+                or message.via_bot
+        )
+        if ignore:
             continue
         if index % 100 == 0 or index % round(count / 20) == 0:
             print("# {:>6d} / {:<6d} = {:.2%}".format(index, count, index / count))

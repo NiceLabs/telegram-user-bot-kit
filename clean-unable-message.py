@@ -2,18 +2,11 @@
 import sys
 from datetime import datetime, timedelta
 
-from pyrogram import Client, Message
+from pyrogram import Client
 
-app = Client("my_account")
+from user_bot_kit.message import is_bot_command
 
-
-def is_bot_command(message: Message):
-    if message.entities:
-        return any(
-            entity.type == "bot_command" and entity.offset == 0
-            for entity in message.entities
-        )
-    return False
+app = Client("bot")
 
 
 def remove_unable_message(chat_id: int):

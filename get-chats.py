@@ -3,7 +3,7 @@ from typing import Generator
 
 from pyrogram import Chat, Client, Dialog
 
-app = Client("my_account")
+app = Client("bot")
 
 
 # noinspection PyBroadException
