@@ -14,10 +14,11 @@ def analysis(chat_id: int):
         .merge(members_df, on="User ID", how="inner") \
         .sort_values("Count", ascending=False)
     grouped_df.to_csv("data/%s-grouped.csv" % chat_id, index=False)
+    available_df = grouped_df[grouped_df["Count"] > 3]
+    available_df.to_csv("data/%s-grouped-available.csv" % chat_id, index=False)
 
-    keep_df = grouped_df[grouped_df["Count"] > 3]
     diff = (members_df["Status"] == "member") & \
-           (~members_df["User ID"].isin(keep_df["User ID"]))
+           (~members_df["User ID"].isin(available_df["User ID"]))
     members_df[diff] \
         .to_csv("data/%s-removable.csv" % chat_id, index=False)
 
