@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import csv
+import os
 import sys
 from datetime import datetime, timedelta
 
@@ -10,6 +11,7 @@ from user_bot_kit.message import is_bot_command
 from user_bot_kit.users import get_user
 
 app = Client("bot")
+FETCH_BIO = bool(os.environ.get("FETCH_BIO", False))
 
 
 def export_members(chat_id: int):
@@ -21,7 +23,7 @@ def export_members(chat_id: int):
             continue
         if index % 100 == 0 or index % round(count / 20) == 0:
             print("# {:>6d} / {:<6d} = {:.2%}".format(index, count, index / count))
-        yield fetch(app, member, get_bio=False)
+        yield fetch(app, member, get_bio=FETCH_BIO)
 
 
 def export_history(chat_id: int):
