@@ -12,9 +12,7 @@ app = Client("bot")
 def remove_unable_message(chat_id: int):
     for message in app.iter_history(chat_id=chat_id):
         delta: timedelta = datetime.now() - datetime.fromtimestamp(message.date)
-        if delta.days >= 730:
-            break
-        if is_bot_command(message):
+        if is_bot_command(message) or message.dice:
             message.delete()
         if not message.service:
             continue
